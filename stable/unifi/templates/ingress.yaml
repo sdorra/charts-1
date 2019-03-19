@@ -26,13 +26,14 @@ spec:
   {{- end }}
 {{- end }}
   rules:
+  {{- $unifiedService := .Values.unifiedService.enabled -}}
   {{- range .Values.ingress.hosts }}
     - host: {{ . }}
       http:
         paths:
           - path: {{ $ingressPath }}
             backend:
-              {{- if .Values.unifiedService.enabled }}
+              {{- if $unifiedService }}
               serviceName: {{ $fullName }}
               {{- else }}
               serviceName: {{ $fullName }}-gui
